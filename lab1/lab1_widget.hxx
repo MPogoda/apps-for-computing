@@ -31,7 +31,7 @@ private:
     QPushButton *open_button;
 
     QTemporaryFile *script;
-    bnu::matrix< qreal > A;
+    bnu::matrix< double > A;
 
     bool prepare_script();
 
@@ -39,8 +39,8 @@ private:
     QString matrix_to_string() const;
     bool compile_latex_string(const QString& input, const QString& filename) const;
     int determinant_sign(const bnu::permutation_matrix< std::size_t >& pm) const;
-    qreal determinant( const bnu::matrix<qreal>& A) const;
-    void solve(const qreal epsilon = 0.00001);
+    double determinant( const bnu::matrix< double >& A) const;
+    void solve(const double epsilon = 0.00001);
 private slots:
     void open_and_solve();
     void view_input();

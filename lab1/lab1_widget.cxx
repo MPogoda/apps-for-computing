@@ -63,7 +63,7 @@ bool Lab1_Widget::prepare_script()
     return true;
 }
 
-bool Lab1_Widget::read_matrix(const QString &filename)
+bool Lab1_Widget::read_matrix(const QString& filename)
 {
     QFile file(filename);
     if (!file.exists()) {
@@ -112,11 +112,12 @@ QString Lab1_Widget::matrix_to_string() const
     assert(A.size1() < A.size2());
 
     QString result("\\left(\\begin{array}{");
-    for (auto i(0); A.size1() != i; ++i) result += "c";
+    for (auto i(0); A.size1() != i; ++i)
+      result += "c";
     result += "|c}";
     for (auto i(0); A.size1() != i; ++i) {
         for (auto j(0); A.size2() != j; ++j) {
-            result += QString("~%1~").arg(A(i, j), 0, 'f', 3);
+            result += QString("%1").arg(A(i, j), 0, 'f', 3);
             if (A.size2() - 1 != j)
                 result += " & ";
         }
@@ -127,7 +128,8 @@ QString Lab1_Widget::matrix_to_string() const
     return result;
 }
 
-bool Lab1_Widget::compile_latex_string(const QString &input, const QString &filename) const
+bool Lab1_Widget::compile_latex_string(const QString& input,
+                                       const QString& filename) const
 {
     QTemporaryFile file;
     if (!file.open()) {
@@ -153,7 +155,8 @@ bool Lab1_Widget::compile_latex_string(const QString &input, const QString &file
     return process.waitForFinished();
 }
 
-int Lab1_Widget::determinant_sign(const bnu::permutation_matrix< std::size_t >& pm) const
+int Lab1_Widget::determinant_sign(const bnu::permutation_matrix< std::size_t
+                                                                >& pm) const
 {
   auto pm_sign( 1 );
   const auto size( pm.size() );
@@ -164,9 +167,9 @@ int Lab1_Widget::determinant_sign(const bnu::permutation_matrix< std::size_t >& 
   return pm_sign;
 }
 
-qreal Lab1_Widget::determinant( const bnu::matrix< qreal >& A) const
+double Lab1_Widget::determinant( const bnu::matrix< double >& A) const
 {
-  bnu::matrix< qreal > m(A.size1(), A.size1(), 0.0);
+  bnu::matrix< double > m(A.size1(), A.size1(), 0.0);
   for (auto i( 0 ); A.size1() != i; ++i)
     for (auto j( 0 ); A.size1() != j; ++j)
       m(i, j) = A(i, j);
@@ -187,7 +190,7 @@ qreal Lab1_Widget::determinant( const bnu::matrix< qreal >& A) const
   return det;
 }
 
-void Lab1_Widget::solve(const qreal epsilon)
+void Lab1_Widget::solve(const double epsilon)
 {
     for (auto p(0); A.size1() != p; ++p) {
         auto divider(A(p, p));
