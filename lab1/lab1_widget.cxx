@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QProcess>
 #include <QMessageBox>
+#include <QSize>
 
 #include <cassert>
 
@@ -31,6 +32,8 @@ Lab1_Widget::Lab1_Widget(QWidget *parent) :
     connect(open_button,   SIGNAL(clicked()), this, SLOT(open_and_solve()));
     connect(input_button,  SIGNAL(clicked()), this, SLOT(view_input()));
     connect(output_button, SIGNAL(clicked()), this, SLOT(view_output()));
+
+    setMinimumSize(QSize(418, 198));
 
     if (!prepare_script())
         close();
