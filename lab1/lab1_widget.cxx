@@ -7,18 +7,25 @@
 #include <QProcess>
 #include <QMessageBox>
 #include <QSize>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <cassert>
 
 Lab1_Widget::Lab1_Widget(QWidget *parent) :
-    QWidget(parent),
-    main_layout(    new QVBoxLayout(this)),
-    buttons_layout( new QHBoxLayout(nullptr)),
+    Describable(trUtf8("Решить СЛАУ методом Жордана-Гаусса.\n"
+          "Основная идея заключается в итеративном приведении матрицы к единичной.\n"
+          "Алгоритм делится на две части:\n"
+          "1. Матрица приводится в верхнетреугольной\n"
+          "2. Матрица приводится к единичной\n"), parent),
     input_button(   new QPushButton(trUtf8("View input"), this)),
     output_button(  new QPushButton(trUtf8("View output"), this)),
     label(          new QLabel(this)),
     open_button(    new QPushButton(trUtf8("Open file"), this))
 {
+    QVBoxLayout *main_layout(new QVBoxLayout(this));
+    QHBoxLayout *buttons_layout(new QHBoxLayout(nullptr));
+
     input_button->setEnabled(false);
     output_button->setEnabled(false);
 
@@ -37,11 +44,6 @@ Lab1_Widget::Lab1_Widget(QWidget *parent) :
 
     if (!prepare_script())
         close();
-}
-
-Lab1_Widget::~Lab1_Widget()
-{
-    delete buttons_layout;
 }
 
 bool Lab1_Widget::prepare_script()
@@ -273,5 +275,12 @@ void Lab1_Widget::view_output()
     label->setPixmap(QPixmap("/tmp/output.png"));
     input_button->setEnabled(true);
     output_button->setEnabled(false);
+}
+
+void Lab1_Widget::reinit()
+{
+  input_button->setEnabled(false);
+  output_button->setEnabled(false);
+  label->clear();
 }
 // kate: indent-mode cstyle; indent-width 4; replace-tabs on;

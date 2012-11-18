@@ -4,27 +4,23 @@
 #include <QWidget>
 #include <QString>
 #include <QTemporaryFile>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
 
+#include "../describable.hxx"
+
 namespace bnu = boost::numeric::ublas;
 
-class Lab1_Widget : public QWidget
+class Lab1_Widget : public Describable
 {
     Q_OBJECT
 
 public:
     Lab1_Widget(QWidget *parent = nullptr);
-    ~Lab1_Widget();
-
 private:
-    QVBoxLayout *main_layout;
-    QHBoxLayout *buttons_layout;
     QPushButton *input_button;
     QPushButton *output_button;
     QLabel      *label;
@@ -41,6 +37,8 @@ private:
     int determinant_sign(const bnu::permutation_matrix< std::size_t >& pm) const;
     double determinant( const bnu::matrix< double >& A) const;
     void solve(const double epsilon = 0.00001);
+
+    virtual void reinit();
 private slots:
     void open_and_solve();
     void view_input();

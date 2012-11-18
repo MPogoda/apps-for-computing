@@ -2,7 +2,11 @@ project( lab1 )
 cmake_minimum_required( VERSION 2.8.6 )
 set ( CMAKE_AUTOMOC true )
 
-add_definitions( -std=c++11 )
+if ( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" )
+  add_definitions( -std=c++11 )
+elseif ( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
+  add_definitions( -std=c++0x )
+endif()
 
 find_package ( Qt4 REQUIRED QtCore QtGui)
 
@@ -13,9 +17,8 @@ set ( lab1_HDRS
 )
 
 set ( lab1_SRCS
-  main.cxx
   lab1_widget.cxx
 )
 
-add_executable( lab1 ${lab1_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
+add_library( lab1 SHARED ${lab1_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
 target_link_libraries( lab1 ${QT_LIBRARIES} )
