@@ -25,11 +25,14 @@ set( describable_SRCS
 add_library( describable ${describable_SRCS} ${QT_LIBRARIES} )
 
 add_subdirectory( lab1 )
+add_subdirectory( lab2 )
 
-add_executable( afc lab1 ${afc_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
+include_directories( ${Qwt6_INCLUDE_DIR} )
+add_executable( afc ${afc_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
 
 add_dependencies( lab1 describable)
+add_dependencies( lab2 describable)
 
-add_dependencies( afc lab1)
+add_dependencies( afc lab1 lab2)
 
-target_link_libraries( afc lab1 describable ${QT_LIBRARIES} )
+target_link_libraries( afc lab1 lab2 describable ${QT_LIBRARIES} )

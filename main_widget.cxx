@@ -1,7 +1,9 @@
 #include "main_widget.hxx"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+
 #include "lab1/lab1_widget.hxx"
+#include "lab2/lab2_widget.hxx"
 
 Main_Widget::Main_Widget(QWidget *parent) :
   QWidget(parent),
@@ -11,6 +13,7 @@ Main_Widget::Main_Widget(QWidget *parent) :
   current(-1)
 {
   labs.push_back(new Lab1_Widget(this));
+  labs.push_back(new Lab2_Widget(this));
 
   buttons->setExclusive(true);
 
@@ -26,7 +29,6 @@ Main_Widget::Main_Widget(QWidget *parent) :
   }
 
   description->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-  description->setScaledContents(true);
 
   main_layout->addLayout(buttons_layout);
   main_layout->addWidget(description);
