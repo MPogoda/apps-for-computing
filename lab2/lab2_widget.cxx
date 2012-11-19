@@ -5,11 +5,11 @@
 #include <iostream>
 #include <numeric>
 
+#include <QHBoxLayout>
+#include <QVBoxLayout>s
+
 Lab2_Widget::Lab2_Widget(QWidget *parent)
-    : QWidget(parent),
-      main_layout(new QVBoxLayout(this)),
-      inputs_layout(new QHBoxLayout(nullptr)),
-      labels_layout(new QHBoxLayout(nullptr)),
+    : Describable(trUtf8("gfhhdfsfa\nasd\nasd\n"), parent),
       l1(new QLabel(trUtf8("a: "), this)),
       l2(new QLabel(trUtf8("b: "), this)),
       l3(new QLabel(trUtf8("n: "), this)),
@@ -30,10 +30,8 @@ Lab2_Widget::Lab2_Widget(QWidget *parent)
 
 Lab2_Widget::~Lab2_Widget()
 {
-    delete labels_layout;
     delete curve1;
     delete curve2;
-    delete inputs_layout;
 }
 
 void Lab2_Widget::setup_ui()
@@ -41,7 +39,9 @@ void Lab2_Widget::setup_ui()
     l1->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
     l2->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
     l3->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
-
+    l1->setBuddy(a_spinbox);
+    l2->setBuddy(b_spinbox);
+    l3->setBuddy(n_spinbox);
     a_spinbox->setDecimals(2);
     a_spinbox->setRange(0.5, 5.0);
     a_spinbox->setValue(1.0);
@@ -59,6 +59,7 @@ void Lab2_Widget::setup_ui()
     connect(a_spinbox, SIGNAL(valueChanged(double)), this, SLOT(b_sn(double)));
     connect(b_spinbox, SIGNAL(valueChanged(double)), this, SLOT(a_sn(double)));
 
+    QHBoxLayout *inputs_layout(new QHBoxLayout(nullptr));
     inputs_layout->addWidget(l1);
     inputs_layout->addWidget(a_spinbox);
     inputs_layout->addWidget(l2);
@@ -66,6 +67,7 @@ void Lab2_Widget::setup_ui()
     inputs_layout->addWidget(l3);
     inputs_layout->addWidget(n_spinbox);
 
+    QHBoxLayout *labels_layout(new QHBoxLayout(nullptr));
     labels_layout->addWidget(integral_num);
     labels_layout->addWidget(integral_real);
     labels_layout->addWidget(integral_diff);
@@ -78,6 +80,7 @@ void Lab2_Widget::setup_ui()
 
     connect(launch_button, SIGNAL(clicked()), this, SLOT(calculate()));
 
+    QVBoxLayout *main_layout(new QVBoxLayout(this));
     main_layout->addLayout(inputs_layout);
     main_layout->addLayout(labels_layout);
     main_layout->addWidget(launch_button);
@@ -160,6 +163,8 @@ void Lab2_Widget::calculate()
 
     curve1->setSamples(xs, ys);
     curve2->setSamples(xs, zs);
+    curve1->show();
+    curve2->show();
     plot1->replot();
 
 }
@@ -175,4 +180,19 @@ void Lab2_Widget::b_sn(double value)
     if (value > b_spinbox->value())
         b_spinbox->setValue(value);
 }
+
+void Lab2_Widget::reinit()
+{
+    a_spinbox->setValue(1.0);
+    b_spinbox->setValue(2.0);
+    n_spinbox->setValue(50);
+    integral_num->setText(trUtf8("Calculated integral: _____"));
+    integral_real->setText(trUtf8("Real value of integral: _____"));
+    integral_diff->setText(trUtf8("Error: _____"));
+
+    curve1->hide();
+    curve2->hide();
+    plot1->replot();
+}
+
 // kate: indent-mode cstyle; indent-width 4; replace-tabs on;

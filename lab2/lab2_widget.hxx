@@ -4,8 +4,6 @@
 #include <QWidget>
 #include <QVector>
 #include <functional>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QDoubleSpinBox>
@@ -15,7 +13,9 @@
 #include <qwt_plot_curve.h>
 #include <qwt_legend.h>
 
-class Lab2_Widget : public QWidget
+#include "../describable.hxx"
+
+class Lab2_Widget : public Describable
 {
     Q_OBJECT
 
@@ -23,9 +23,6 @@ public:
     Lab2_Widget(QWidget *parent = nullptr);
     ~Lab2_Widget();
 private:
-    QVBoxLayout    *main_layout;
-    QHBoxLayout    *inputs_layout;
-    QHBoxLayout    *labels_layout;
     QLabel         *l1;
     QLabel         *l2;
     QLabel         *l3;
@@ -51,6 +48,7 @@ private:
     qreal integrate(const std::function< double(double) >& func,
                     QVector< double > xs) const;
 
+    virtual void reinit();
 public slots:
     void calculate();
     void a_sn(double);
