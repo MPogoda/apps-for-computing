@@ -9,11 +9,10 @@
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 
-#include <qwt_plot.h>
-#include <qwt_plot_curve.h>
-#include <qwt_legend.h>
-
-#include "../describable.hxx"
+class QwtPlot;
+class QwtPlotCurve;
+class QwtLegend;
+#include "../describable/describable.hxx"
 
 class Lab2_Widget : public Describable
 {

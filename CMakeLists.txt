@@ -13,26 +13,24 @@ find_package( Qt4 REQUIRED QtGui QtCore )
 
 include( ${QT_USE_FILE} )
 
-set( afc_SRCS
+set( SRCS
   main.cxx
   main_widget.cxx
 )
 
-set( describable_SRCS
-  describable.hxx
-)
+set( DESCRIBABLE_LIBRARY describable )
 
-add_library( describable ${describable_SRCS} ${QT_LIBRARIES} )
-
+add_subdirectory( describable )
 add_subdirectory( lab1 )
 add_subdirectory( lab2 )
 
-include_directories( ${Qwt6_INCLUDE_DIR} )
-add_executable( afc ${afc_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
+add_executable( afc ${SRCS} )
 
-add_dependencies( lab1 describable)
-add_dependencies( lab2 describable)
+add_dependencies( lab1 describable )
+add_dependencies( lab2 describable )
 
-add_dependencies( afc lab1 lab2)
+add_dependencies( afc
+                  lab1 lab2
+)
 
-target_link_libraries( afc lab1 lab2 describable ${QT_LIBRARIES} )
+target_link_libraries( afc lab1 lab2 ${QT_LIBRARIES} )

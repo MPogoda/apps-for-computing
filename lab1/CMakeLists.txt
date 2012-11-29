@@ -20,5 +20,5 @@ set ( lab1_SRCS
   lab1_widget.cxx
 )
 
-add_library( lab1 SHARED ${lab1_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
-target_link_libraries( lab1 ${QT_LIBRARIES} )
+add_library( lab1 SHARED ${lab1_SRCS} )
+target_link_libraries( lab1 ${DESCRIBABLE_LIBRARY} ${QT_LIBRARIES})

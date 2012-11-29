@@ -12,7 +12,7 @@ find_package ( Qt4 REQUIRED QtGui QtCore)
 
 include ( ${QT_USE_FILE} )
 
-set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" )
+set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake" )
 find_package ( Qwt6 REQUIRED)
 include_directories( ${Qwt6_INCLUDE_DIR} )
 
@@ -24,5 +24,6 @@ set ( lab2_SRCS
   lab2_widget.cxx
 )
 
-add_library ( lab2 SHARED ${lab2_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
-target_link_libraries ( lab2 ${QT_LIBRARIES} ${Qwt6_LIBRARY} )
+add_library ( lab2 SHARED ${lab2_SRCS} )
+target_link_libraries ( lab2 ${QT_LIBRARIES} ${Qwt6_LIBRARY}
+  ${DESCRIBABLE_LIBRARY})

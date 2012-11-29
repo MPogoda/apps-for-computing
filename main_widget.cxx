@@ -55,7 +55,7 @@ void Main_Widget::launch_lab()
 
   // current != -1 by design
   labs[current]->show();
-  description->setText(((const Describable *)labs[current])->getDescription());
+  description->setText(static_cast<const Describable *>(labs[current])->getDescription());
   description->updateGeometry();
   updateGeometry();
 }

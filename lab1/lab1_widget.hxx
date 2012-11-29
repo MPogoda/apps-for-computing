@@ -10,7 +10,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
 
-#include "../describable.hxx"
+#include "../describable/describable.hxx"
 
 namespace bnu = boost::numeric::ublas;
 

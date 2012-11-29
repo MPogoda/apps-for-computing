@@ -7,7 +7,7 @@
 #include <QVector>
 #include <QButtonGroup>
 
-#include "describable.hxx"
+#include "describable/describable.hxx"
 
 class  Main_Widget : public QWidget
 {

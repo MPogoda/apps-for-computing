@@ -1,15 +1,24 @@
 #include "lab2_widget.hxx"
 #include <QVector>
 #include <QSize>
+#include <qwt_plot.h>
+#include <qwt_plot_curve.h>
+#include <qwt_legend.h>
 #include <algorithm>
 #include <iostream>
 #include <numeric>
 
 #include <QHBoxLayout>
-#include <QVBoxLayout>s
+#include <QVBoxLayout>
 
 Lab2_Widget::Lab2_Widget(QWidget *parent)
-    : Describable(trUtf8("gfhhdfsfa\nasd\nasd\n"), parent),
+    : Describable(trUtf8("Численное интегрирование методом центральных прямоугольников:\n"
+                         "1. Промежуток интегрирования разбивается на n интервалов.\n"
+                         "2. Значение функции на каждом промежутке принимается равным\n"
+                         "      значению функции в центре промежутка Fi.\n"
+                         "3. Интеграл считается как сумма Fi * h\n\n"
+                         "Численное дифференцирование сводится к использованию определения\n"
+                         "    производной, но не устремляя шаг к 0."), parent),
       l1(new QLabel(trUtf8("a: "), this)),
       l2(new QLabel(trUtf8("b: "), this)),
       l3(new QLabel(trUtf8("n: "), this)),
@@ -121,12 +130,12 @@ double Lab2_Widget::integrate(const std::function< double(double) > &func,
     const auto step = xs.at(1) - xs.at(0);
 
     const auto my_f = [&step, &func](double x) {
-        return (func(x + 0.5 * step) * step);
+        return (func(x + 0.5 * step));
     };
 
     transform(xs.begin(), xs.end(), xs.begin(), my_f);
 
-    const auto result = accumulate(xs.begin(), xs.end(), 0.0);
+    const auto result = accumulate(xs.begin(), xs.end(), 0.0) * step;
 
     return result;
 }
