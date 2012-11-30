@@ -30,7 +30,6 @@ Lab2_Widget::Lab2_Widget(QWidget *parent)
       a_spinbox(new QDoubleSpinBox(this)),
       b_spinbox(new QDoubleSpinBox(this)),
       n_spinbox(new QSpinBox(this)),
-      launch_button(new QPushButton(trUtf8("Calculate!"), this)),
       plot1(new QwtPlot(this)),
       curve1(new QwtPlotCurve("diff")),
       curve2(new QwtPlotCurve("real")),
@@ -127,6 +126,7 @@ void Lab2_Widget::setup_ui()
     curve2->setPen(QPen(Qt::blue));
     plot1->insertLegend(legend);
 
+    QPushButton *launch_button(new QPushButton(trUtf8("Calculate!"), this));
     connect(launch_button, SIGNAL(clicked()), this, SLOT(calculate()));
 
     QVBoxLayout *main_layout(new QVBoxLayout(this));

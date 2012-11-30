@@ -2,7 +2,6 @@
 #define LAB2_WIDGET_H
 
 class QWidget;
-class QPushButton;
 class QLabel;
 class QDoubleSpinBox;
 class QSpinBox;
@@ -28,7 +27,6 @@ private:
     QDoubleSpinBox *a_spinbox;
     QDoubleSpinBox *b_spinbox;
     QSpinBox       *n_spinbox;
-    QPushButton    *launch_button;
 
     QwtPlot        *plot1;
     QwtPlotCurve   *curve1;

@@ -24,11 +24,11 @@ Lab1_Widget::Lab1_Widget(QWidget *parent) :
           "2. Матрица приводится к единичной\n"), parent),
     input_button(   new QPushButton(trUtf8("View input"), this)),
     output_button(  new QPushButton(trUtf8("View output"), this)),
-    label(          new QLabel(this)),
-    open_button(    new QPushButton(trUtf8("Open file"), this))
+    label(          new QLabel(this))
 {
     QVBoxLayout *main_layout(new QVBoxLayout(this));
     QHBoxLayout *buttons_layout(new QHBoxLayout(nullptr));
+    QPushButton *open_button(    new QPushButton(trUtf8("Open file"), this));
 
     input_button->setEnabled(false);
     output_button->setEnabled(false);

@@ -24,7 +24,6 @@ private:
     QPushButton *input_button;
     QPushButton *output_button;
     QLabel      *label;
-    QPushButton *open_button;
 
     QTemporaryFile *script;
     bnu::matrix< double > A;
