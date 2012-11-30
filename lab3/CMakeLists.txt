@@ -27,3 +27,6 @@ set ( lab2_SRCS
 add_library ( lab3 SHARED ${lab2_SRCS} )
 target_link_libraries ( lab3 ${QT_LIBRARIES} ${Qwt6_LIBRARY}
   ${DESCRIBABLE_LIBRARY})
+
+add_executable( run3 main.cxx )
+target_link_libraries( run3 lab3 )
