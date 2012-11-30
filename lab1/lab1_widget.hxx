@@ -1,11 +1,11 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QWidget>
-#include <QString>
-#include <QTemporaryFile>
-#include <QPushButton>
-#include <QLabel>
+class QWidget;
+class QString;
+class QTemporaryFile;
+class QPushButton;
+class QLabel;
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>

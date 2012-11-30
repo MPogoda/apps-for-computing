@@ -1,5 +1,10 @@
 #include "lab2_widget.hxx"
-#include <QVector>
+#include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QDoubleSpinBox>
+#include <QSpinBox>
+
 #include <QSize>
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
@@ -19,12 +24,9 @@ Lab2_Widget::Lab2_Widget(QWidget *parent)
                          "3. Интеграл считается как сумма Fi * h\n\n"
                          "Численное дифференцирование сводится к использованию определения\n"
                          "    производной, но не устремляя шаг к 0."), parent),
-      l1(new QLabel(trUtf8("a: "), this)),
-      l2(new QLabel(trUtf8("b: "), this)),
-      l3(new QLabel(trUtf8("n: "), this)),
-      integral_num(new QLabel(trUtf8("Calculated integral: _____"), this)),
-      integral_real(new QLabel(trUtf8("Real value of integral: _____"), this)),
-      integral_diff(new QLabel(trUtf8("Error: _____"), this)),
+      integral_num(new QLabel(this)),
+      integral_real(new QLabel( this)),
+      integral_diff(new QLabel( this)),
       a_spinbox(new QDoubleSpinBox(this)),
       b_spinbox(new QDoubleSpinBox(this)),
       n_spinbox(new QSpinBox(this)),
@@ -45,42 +47,80 @@ Lab2_Widget::~Lab2_Widget()
 
 void Lab2_Widget::setup_ui()
 {
-    l1->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
-    l2->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
-    l3->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred));
-    l1->setBuddy(a_spinbox);
-    l2->setBuddy(b_spinbox);
-    l3->setBuddy(n_spinbox);
-    a_spinbox->setDecimals(2);
-    a_spinbox->setRange(0.5, 5.0);
-    a_spinbox->setValue(1.0);
-    a_spinbox->setSingleStep(0.1);
+    // top layout (for spinboxes)
+    QHBoxLayout *inputs_layout(new QHBoxLayout(nullptr));
+    QLabel *l(nullptr);
 
-    b_spinbox->setDecimals(2);
-    b_spinbox->setRange(0.5, 5.0);
-    b_spinbox->setValue(2.0);
-    b_spinbox->setSingleStep(0.1);
+      // add a_spinbox
+      l = new QLabel(trUtf8("a: "), this);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      l->setBuddy(a_spinbox);
+      a_spinbox->setDecimals(2);
+      a_spinbox->setRange(0.5, 5.0);
+      a_spinbox->setValue(1.0);
+      a_spinbox->setSingleStep(0.1);
 
-    n_spinbox->setRange(5, 5000);
-    n_spinbox->setValue(50);
-    n_spinbox->setSingleStep(5);
+    inputs_layout->addWidget(l);
+    inputs_layout->addWidget(a_spinbox);
+
+
+      // b_spinbox
+      l = new QLabel(trUtf8("b: "), this);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      l->setBuddy(b_spinbox);
+      b_spinbox->setDecimals(2);
+      b_spinbox->setRange(0.5, 5.0);
+      b_spinbox->setValue(2.0);
+      b_spinbox->setSingleStep(0.1);
+
+    inputs_layout->addWidget(l);
+    inputs_layout->addWidget(b_spinbox);
+
+      // n_spinbox
+      l = new QLabel(trUtf8("n: "), this);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      l->setBuddy(n_spinbox);
+      n_spinbox->setRange(5, 5000);
+      n_spinbox->setValue(50);
+      n_spinbox->setSingleStep(5);
+
+    inputs_layout->addWidget(l);
+    inputs_layout->addWidget(n_spinbox);
 
     connect(a_spinbox, SIGNAL(valueChanged(double)), this, SLOT(b_sn(double)));
     connect(b_spinbox, SIGNAL(valueChanged(double)), this, SLOT(a_sn(double)));
 
-    QHBoxLayout *inputs_layout(new QHBoxLayout(nullptr));
-    inputs_layout->addWidget(l1);
-    inputs_layout->addWidget(a_spinbox);
-    inputs_layout->addWidget(l2);
-    inputs_layout->addWidget(b_spinbox);
-    inputs_layout->addWidget(l3);
-    inputs_layout->addWidget(n_spinbox);
 
+    // middle layout (for outputs
     QHBoxLayout *labels_layout(new QHBoxLayout(nullptr));
-    labels_layout->addWidget(integral_num);
-    labels_layout->addWidget(integral_real);
-    labels_layout->addWidget(integral_diff);
+      l = new QLabel(trUtf8("Calculated integral: "), this);
+      l->setBuddy(integral_num);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      integral_num->setFrameStyle( QFrame::Panel | QFrame::Sunken );
+      labels_layout->addWidget(l);
+      labels_layout->addWidget(integral_num);
 
+      l = new QLabel(trUtf8("Real value of integral: "), this);
+      l->setBuddy(integral_real);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      integral_real->setFrameStyle( QFrame::Panel | QFrame::Sunken );
+      labels_layout->addWidget(l);
+      labels_layout->addWidget(integral_real);
+
+      l = new QLabel(trUtf8("Error: "), this);
+      l->setBuddy(integral_diff);
+      l->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
+                                   QSizePolicy::Preferred));
+      integral_diff->setFrameStyle( QFrame::Panel | QFrame::Sunken );
+      labels_layout->addWidget(l);
+      labels_layout->addWidget(integral_diff);
+
+    // Qwt stuff
     curve1->attach(plot1);
     curve1->setPen(QPen(Qt::red));
     curve2->attach(plot1);
@@ -158,10 +198,9 @@ void Lab2_Widget::calculate()
     const auto I = integrate(f, xs);
     const auto rI = F(b) - F(a);
     const auto dI = qAbs(rI - I);
-    integral_num->setText(trUtf8("Calculated integral: %1").arg(I, 0, 'f', 3));
-    integral_real->setText(trUtf8("Real value of integral: %1").arg(rI, 0, 'f', 3));
-    integral_diff->setText(trUtf8("Error: %1").arg(dI));
-    //std::cout << "real value: " << F(b) - F(a) << std::endl << "got: " << integrate(f, xs) << std::endl;
+    integral_num->setText(trUtf8("%1").arg(I, 0, 'f', 3));
+    integral_real->setText(trUtf8("%1").arg(rI, 0, 'f', 3));
+    integral_diff->setText(trUtf8("%1").arg(dI));
 
     auto ys(xs);
     diff(F, ys);
@@ -195,10 +234,9 @@ void Lab2_Widget::reinit()
     a_spinbox->setValue(1.0);
     b_spinbox->setValue(2.0);
     n_spinbox->setValue(50);
-    integral_num->setText(trUtf8("Calculated integral: _____"));
-    integral_real->setText(trUtf8("Real value of integral: _____"));
-    integral_diff->setText(trUtf8("Error: _____"));
-
+    integral_num->clear();
+    integral_real->clear();
+    integral_diff->clear();
     curve1->hide();
     curve2->hide();
     plot1->replot();

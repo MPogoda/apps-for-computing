@@ -1,17 +1,17 @@
 #ifndef LAB2_WIDGET_H
 #define LAB2_WIDGET_H
 
-#include <QWidget>
-#include <QVector>
-#include <functional>
-#include <QPushButton>
-#include <QLabel>
-#include <QDoubleSpinBox>
-#include <QSpinBox>
-
+class QWidget;
+class QPushButton;
+class QLabel;
+class QDoubleSpinBox;
+class QSpinBox;
 class QwtPlot;
 class QwtPlotCurve;
 class QwtLegend;
+
+#include <QVector>
+#include <functional>
 #include "../describable/describable.hxx"
 
 class Lab2_Widget : public Describable
@@ -20,11 +20,8 @@ class Lab2_Widget : public Describable
 
 public:
     Lab2_Widget(QWidget *parent = nullptr);
-    ~Lab2_Widget();
+    virtual ~Lab2_Widget();
 private:
-    QLabel         *l1;
-    QLabel         *l2;
-    QLabel         *l3;
     QLabel         *integral_num;
     QLabel         *integral_real;
     QLabel         *integral_diff;

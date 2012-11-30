@@ -1,4 +1,8 @@
 #include "main_widget.hxx"
+#include <QWidget>
+#include <QButtonGroup>
+#include <QPushButton>
+#include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
@@ -42,6 +46,11 @@ Main_Widget::Main_Widget(QWidget *parent) :
   connect(buttons, SIGNAL(buttonClicked(int)), this, SLOT(launch_lab()));
 }
 
+Main_Widget::~Main_Widget()
+{
+  labs.clear();
+}
+
 void Main_Widget::launch_lab()
 {
   if (-1 != current)
@@ -55,7 +64,7 @@ void Main_Widget::launch_lab()
 
   // current != -1 by design
   labs[current]->show();
-  description->setText(static_cast<const Describable *>(labs[current])->getDescription());
+  description->setText(labs[current]->getDescription());
   description->updateGeometry();
   updateGeometry();
 }

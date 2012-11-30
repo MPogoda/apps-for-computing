@@ -1,4 +1,8 @@
 #include "lab1_widget.hxx"
+#include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QTemporaryFile>
 #include <QFileDialog>
 #include <QString>
 #include <QFile>
