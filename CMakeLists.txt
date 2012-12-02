@@ -23,14 +23,16 @@ set( DESCRIBABLE_LIBRARY describable )
 add_subdirectory( describable )
 add_subdirectory( lab1 )
 add_subdirectory( lab2 )
+add_subdirectory( lab3 )
 
 add_executable( afc ${SRCS} )
 
 add_dependencies( lab1 describable )
 add_dependencies( lab2 describable )
+add_dependencies( lab3 describable )
 
 add_dependencies( afc
-                  lab1 lab2
+                  lab1 lab2 lab3
 )
 
-target_link_libraries( afc lab1 lab2 ${QT_LIBRARIES} )
+target_link_libraries( afc lab1 lab2 lab3 ${QT_LIBRARIES} )
