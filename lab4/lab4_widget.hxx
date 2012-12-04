@@ -1,5 +1,5 @@
-#ifndef LAB3_WIDGET_H
-#define LAB3_WIDGET_H
+#ifndef LAB4_WIDGET_H
+#define LAB4_WIDGET_H
 
 class QWidget;
 /**
@@ -32,5 +32,5 @@ private:
     virtual void reinit();
 };
 
-#endif // LAB3_WIDGET_H
+#endif // LAB4_WIDGET_H
 // kate: indent-mode cstyle; indent-width 4; replace-tabs on;
