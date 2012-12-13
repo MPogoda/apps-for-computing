@@ -12,16 +12,10 @@ find_package ( Qt4 REQUIRED QtGui QtCore)
 
 include ( ${QT_USE_FILE} )
 
-set ( lab4_HDRS
-  lab4_widget.hxx
-)
-
-set ( lab2_SRCS
+set ( lab4_SRCS
   lab4_widget.cxx
 )
 
-add_library ( lab4 SHARED ${lab2_SRCS} )
-target_link_libraries ( lab4 ${QT_LIBRARIES} ${DESCRIBABLE_LIBRARY})
+add_library ( lab4 SHARED ${lab4_SRCS} )
 
-add_executable( run4 main.cxx )
-target_link_libraries( run4 lab4 )
+target_link_libraries ( lab4 ${QT_LIBRARIES} ${DESCRIBABLE_LIBRARY})
