@@ -1,16 +1,16 @@
-#ifndef LAB4_WIDGET_H
-#define LAB4_WIDGET_H
+#ifndef LAB5_WIDGET_H
+#define LAB5_WIDGET_H
 
 class QWidget;
 #include "../describable/describable.hxx"
 
-class Lab4_Widget : public Describable
+class Lab5_Widget : public Describable
 {
     Q_OBJECT
 
 public:
-    Lab4_Widget(QWidget *parent = nullptr);
-    virtual ~Lab4_Widget();
+    Lab5_Widget(QWidget *parent = nullptr);
+    virtual ~Lab5_Widget();
     virtual void reinit();
 private:
 private slots:
@@ -18,4 +18,4 @@ private slots:
 
 };
 
-#endif // LAB4_WIDGET_H
+#endif // LAB5_WIDGET_H

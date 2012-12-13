@@ -10,6 +10,7 @@
 #include "lab2/lab2_widget.hxx"
 #include "lab3/lab3_widget.hxx"
 #include "lab4/lab4_widget.hxx"
+#include "lab5/lab5_widget.hxx"
 
 Main_Widget::Main_Widget(QWidget *parent) :
   QWidget(parent),
@@ -22,6 +23,7 @@ Main_Widget::Main_Widget(QWidget *parent) :
   labs.push_back(new Lab2_Widget(this));
   labs.push_back(new Lab3_Widget(this));
   labs.push_back(new Lab4_Widget(this));
+  labs.push_back(new Lab5_Widget(this));
 
   buttons->setExclusive(true);
 

@@ -19,3 +19,6 @@ set ( lab5_SRCS
 add_library ( lab5 SHARED ${lab5_SRCS} )
 
 target_link_libraries ( lab5 ${QT_LIBRARIES} ${DESCRIBABLE_LIBRARY})
+
+add_executable( run5 main.cxx )
+target_link_libraries( run5 lab5 )

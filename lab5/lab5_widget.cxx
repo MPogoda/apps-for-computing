@@ -6,22 +6,22 @@
 #include <QPushButton>
 #include <QString>
 
-Lab4_Widget::Lab4_Widget(QWidget *parent)
+Lab5_Widget::Lab5_Widget(QWidget *parent)
     : Describable(QString::null,
         parent)
 {
     setMinimumSize(QSize(431, 407));
 }
 
-void Lab4_Widget::run()
+void Lab5_Widget::run()
 {
 
 }
 
-Lab4_Widget::~Lab4_Widget()
+Lab5_Widget::~Lab5_Widget()
 {
 }
 
-void Lab4_Widget::reinit()
+void Lab5_Widget::reinit()
 {
 }
