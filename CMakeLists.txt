@@ -25,6 +25,7 @@ add_subdirectory( lab1 )
 add_subdirectory( lab2 )
 add_subdirectory( lab3 )
 add_subdirectory( lab4 )
+add_subdirectory( lab5 )
 
 add_executable( afc ${SRCS} )
 
@@ -32,9 +33,10 @@ add_dependencies( lab1 describable )
 add_dependencies( lab2 describable )
 add_dependencies( lab3 describable )
 add_dependencies( lab4 describable )
+add_dependencies( lab5 describable )
 
 add_dependencies( afc
-                  lab1 lab2 lab3 lab4
+                  lab1 lab2 lab3 lab4 lab5
 )
 
-target_link_libraries( afc lab1 lab2 lab3 lab4 ${QT_LIBRARIES} )
+target_link_libraries( afc lab1 lab2 lab3 lab4 lab5 ${QT_LIBRARIES} )
